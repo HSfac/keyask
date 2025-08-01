@@ -129,7 +129,7 @@ export default function SolutionsPage() {
 
         {/* 솔루션 목록 */}
         <div className="space-y-20">
-          {solutions.map((solution, index) => (
+          {solutions.map((solution) => (
             <div key={solution.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
               <div className={`bg-gradient-to-r ${solution.color} p-12 text-white`}>
                 <div className="flex items-center justify-between">

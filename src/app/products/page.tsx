@@ -272,9 +272,9 @@ export default function ProductsPage() {
               <thead>
                 <tr className="border-b-2 border-gray-200">
                   <th className="p-6 text-left text-lg font-bold text-gray-900">사양</th>
-                  <th className="p-6 text-center text-lg font-bold text-gray-900">Basic 15.6"</th>
-                  <th className="p-6 text-center text-lg font-bold text-[#3182F6]">Pro 21.5" ⭐</th>
-                  <th className="p-6 text-center text-lg font-bold text-gray-900">Max 27"</th>
+                  <th className="p-6 text-center text-lg font-bold text-gray-900">Basic 15.6&rdquo;</th>
+                  <th className="p-6 text-center text-lg font-bold text-[#3182F6]">Pro 21.5&rdquo; ⭐</th>
+                  <th className="p-6 text-center text-lg font-bold text-gray-900">Max 27&rdquo;</th>
                 </tr>
               </thead>
               <tbody>

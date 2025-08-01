@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 
-export default function FAQPage() {
-  const [activeTab, setActiveTab] = useState('installation');
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-
-  const faqCategories = {
+const faqCategories = {
     installation: {
       title: '설치 관련',
       icon: '🔧',
@@ -96,6 +92,10 @@ export default function FAQPage() {
       ]
     }
   };
+
+export default function FAQPage() {
+  const [activeTab, setActiveTab] = useState<keyof typeof faqCategories>('installation');
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const tabs = Object.keys(faqCategories) as Array<keyof typeof faqCategories>;
 

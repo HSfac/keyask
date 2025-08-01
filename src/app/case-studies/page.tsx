@@ -177,7 +177,7 @@ export default function CaseStudiesPage() {
 
         {/* 사례 목록 */}
         <div className="space-y-16">
-          {caseStudies.map((study, index) => (
+          {caseStudies.map((study) => (
             <div key={study.id} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
               {/* 헤더 */}
               <div className="bg-gray-50 p-8 border-b border-gray-200">
@@ -256,7 +256,7 @@ export default function CaseStudiesPage() {
                     <div className="text-4xl mr-4">💬</div>
                     <div className="flex-1">
                       <blockquote className="text-lg text-gray-700 mb-4 leading-relaxed italic">
-                        "{study.testimonial}"
+                        &ldquo;{study.testimonial}&rdquo;
                       </blockquote>
                       <cite className="text-primary font-semibold">- {study.author}</cite>
                     </div>

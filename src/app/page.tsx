@@ -195,7 +195,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex justify-between items-center py-3 border-b border-white/20">
                   <span className="font-semibold text-lg">디스플레이</span>
-                  <span className="text-white/90 text-lg">21.5" 4K 터치스크린</span>
+                  <span className="text-white/90 text-lg">21.5&rdquo; 4K 터치스크린</span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-white/20">
                   <span className="font-semibold text-lg">프로세서</span>

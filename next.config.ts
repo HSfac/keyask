@@ -16,9 +16,9 @@ const nextConfig: NextConfig = {
   },
   
   // 빌드 최적화
-  experimental: {
-    optimizeCss: true,
-  },
+  // experimental: {
+  //   optimizeCss: true, // critters 모듈 에러로 인해 비활성화
+  // },
   
   // 성능 최적화는 Next.js 15에서 기본적으로 활성화됨
   

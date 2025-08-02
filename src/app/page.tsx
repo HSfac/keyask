@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 
 const AnimatedCounter = ({ end, duration = 2 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0);
@@ -24,6 +24,27 @@ const AnimatedCounter = ({ end, duration = 2 }: { end: number; duration?: number
 };
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // 스크롤에 따른 배경색 변화
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    ["#ffffff", "#f9fafb", "#ffffff", "#f9fafb", "#ffffff"]
+  );
+
+  // 플로팅 요소들의 위치
+  const floatingY = useSpring(useTransform(scrollYProgress, [0, 1], [0, -200]), {
+    stiffness: 100,
+    damping: 30
+  });
+
+  const floatingRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+
   const solutions = [
     {
       title: "음식점 키오스크",
@@ -81,11 +102,56 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <motion.div 
+      ref={containerRef}
+      className="min-h-screen relative"
+      style={{ backgroundColor }}
+    >
+      {/* 플로팅 배경 요소들 */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"
+          style={{ y: floatingY, rotate: floatingRotate }}
+        />
+        <motion.div
+          className="absolute top-1/2 -left-40 w-64 h-64 bg-gradient-to-br from-green-100/30 to-blue-100/30 rounded-full blur-3xl"
+          style={{ y: useTransform(floatingY, v => v * 0.5), rotate: useTransform(floatingRotate, v => -v * 0.5) }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-100/20 to-pink-100/20 rounded-full blur-3xl"
+          style={{ y: useTransform(floatingY, v => v * 0.8), rotate: useTransform(floatingRotate, v => v * 0.3) }}
+        />
+      </div>
+
       {/* 히어로 섹션 */}
-      <section className="relative bg-white text-gray-900 pt-24 pb-20 overflow-hidden">
-        {/* 미묘한 배경 그라디언트 */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white"></div>
+      <section className="relative text-gray-900 pt-24 pb-20 overflow-hidden">
+        {/* 인터랙티브 배경 요소 */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute top-20 right-20 w-32 h-32 bg-blue-500/5 rounded-full"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360]
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-20 w-24 h-24 bg-purple-500/5 rounded-full"
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              rotate: [360, 180, 0]
+            }}
+            transition={{ 
+              duration: 15, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          />
+        </div>
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
@@ -175,13 +241,34 @@ export default function Home() {
 
       {/* 통계 섹션 */}
       <motion.section 
-        className="py-20 bg-gray-50"
+        className="py-20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 섹션 연결 요소 */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
+        
+        {/* 동적 배경 패턴 */}
+        <motion.div 
+          className="absolute inset-0 opacity-30"
+          animate={{ 
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{ 
+            duration: 20, 
+            repeat: Infinity, 
+            repeatType: 'reverse',
+            ease: 'linear'
+          }}
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(59, 130, 246, 0.1) 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}
+        />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -189,9 +276,19 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-6">
-              <span>📈</span> 검증된 성과
-            </div>
+            <motion.div 
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-6"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.span
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                📈
+              </motion.span> 
+              검증된 성과
+            </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               신뢰할 수 있는 파트너
             </h2>
@@ -206,23 +303,67 @@ export default function Home() {
               return (
                 <motion.div 
                   key={index} 
-                  className="apple-card p-6 text-center group hover:shadow-lg"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  className="apple-card p-6 text-center group relative overflow-hidden"
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ 
                     duration: 0.6, 
-                    delay: index * 0.1 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+                    transition: { duration: 0.2 }
                   }}
                 >
-                  <div className={`text-4xl font-bold mb-2 ${
-                    index === 0 ? 'text-blue-600' : 
-                    index === 1 ? 'text-green-600' : 
-                    index === 2 ? 'text-purple-600' : 'text-orange-600'
-                  }`}>
+                  {/* 호버 시 배경 효과 */}
+                  <motion.div
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      index === 0 ? 'bg-gradient-to-br from-blue-50 to-blue-100' : 
+                      index === 1 ? 'bg-gradient-to-br from-green-50 to-green-100' : 
+                      index === 2 ? 'bg-gradient-to-br from-purple-50 to-purple-100' : 
+                      'bg-gradient-to-br from-orange-50 to-orange-100'
+                    }`}
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* 상단 아이콘 */}
+                  <motion.div 
+                    className="text-2xl mb-3"
+                    whileHover={{ 
+                      scale: 1.2,
+                      rotate: [0, -10, 10, 0]
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {index === 0 ? '🚀' : index === 1 ? '⭐' : index === 2 ? '🎯' : '💰'}
+                  </motion.div>
+                  
+                  <motion.div 
+                    className={`text-4xl font-bold mb-2 relative z-10 ${
+                      index === 0 ? 'text-blue-600' : 
+                      index === 1 ? 'text-green-600' : 
+                      index === 2 ? 'text-purple-600' : 'text-orange-600'
+                    }`}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     {isNaN(statNumber) ? stat.number : <><AnimatedCounter end={statNumber} />{stat.number.replace(/[0-9]/g, '')}</>}
-                  </div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                  </motion.div>
+                  <div className="text-gray-600 font-medium relative z-10">{stat.label}</div>
+                  
+                  {/* 하단 프로그레스 바 */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '100%' }}
+                    transition={{ duration: 1, delay: index * 0.2 }}
+                  />
                 </motion.div>
               );
             })}
@@ -254,9 +395,80 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* 섹션 연결 요소 */}
+      <div className="relative h-24 overflow-hidden">
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          {/* 연결 라인 */}
+          <motion.div 
+            className="w-full h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 1.5 }}
+          />
+          
+          {/* 중앙 연결점 */}
+          <motion.div
+            className="absolute w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+            initial={{ scale: 0, rotate: 0 }}
+            whileInView={{ scale: 1, rotate: 360 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </motion.div>
+          
+          {/* 플로팅 파티클들 */}
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-blue-400 rounded-full"
+              style={{
+                left: `${20 + i * 15}%`,
+                top: '50%'
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
+
       {/* 솔루션 소개 섹션 */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-white relative overflow-hidden">
+        {/* 섹션별 고유 배경 패턴 */}
+        <motion.div
+          className="absolute inset-0 opacity-30"
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: 'linear'
+          }}
+          style={{
+            backgroundImage: 'linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.03) 50%, transparent 70%)',
+            backgroundSize: '200px 200px'
+          }}
+        />
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -280,43 +492,146 @@ export default function Home() {
             {solutions.map((solution, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
                 transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1 
+                  duration: 0.8, 
+                  delay: index * 0.15,
+                  type: "spring",
+                  stiffness: 100
                 }}
-                className="group"
+                className="group perspective-1000"
               >
                 <Link href={solution.href} className="block">
-                  <div className="apple-card p-8 h-full hover:shadow-lg transition-all duration-200">
-                    <div className="text-5xl mb-6">{solution.icon}</div>
+                  <motion.div 
+                    className="apple-card p-8 h-full relative overflow-hidden"
+                    whileHover={{ 
+                      y: -12,
+                      rotateY: 5,
+                      rotateX: 5,
+                      scale: 1.02,
+                      boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+                    }}
+                    transition={{ 
+                      duration: 0.3,
+                      type: "spring",
+                      stiffness: 300
+                    }}
+                  >
+                    {/* 동적 배경 그라디언트 */}
+                    <motion.div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                      style={{
+                        background: `linear-gradient(135deg, ${
+                          index === 0 ? 'rgba(59, 130, 246, 0.03)' :
+                          index === 1 ? 'rgba(34, 197, 94, 0.03)' :
+                          index === 2 ? 'rgba(147, 51, 234, 0.03)' :
+                          'rgba(239, 68, 68, 0.03)'
+                        } 0%, rgba(255,255,255,0) 100%)`
+                      }}
+                      initial={{ scale: 0, rotate: 0 }}
+                      whileHover={{ scale: 1, rotate: 180 }}
+                      transition={{ duration: 0.5 }}
+                    />
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                    {/* 플로팅 아이콘 */}
+                    <motion.div 
+                      className="text-6xl mb-6 relative z-10"
+                      whileHover={{ 
+                        scale: 1.1,
+                        rotate: [0, -5, 5, 0],
+                        y: -5
+                      }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {solution.icon}
+                      
+                      {/* 아이콘 주변 링 효과 */}
+                      <motion.div
+                        className="absolute inset-0 -m-4 border-2 border-blue-200 rounded-full opacity-0 group-hover:opacity-100"
+                        initial={{ scale: 0 }}
+                        whileHover={{ 
+                          scale: [1, 1.2, 1],
+                          rotate: [0, 360]
+                        }}
+                        transition={{ duration: 1, delay: 0.1 }}
+                      />
+                    </motion.div>
+                    
+                    <motion.h3 
+                      className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors relative z-10"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {solution.title}
-                    </h3>
+                    </motion.h3>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <motion.p 
+                      className="text-gray-600 mb-6 leading-relaxed relative z-10"
+                      whileHover={{ x: 3 }}
+                      transition={{ duration: 0.2, delay: 0.05 }}
+                    >
                       {solution.description}
-                    </p>
+                    </motion.p>
                     
                     {/* 특징 리스트 */}
-                    <div className="space-y-3 mb-8">
+                    <div className="space-y-3 mb-8 relative z-10">
                       {solution.features.slice(0, 3).map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center">
-                          <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                        <motion.div 
+                          key={featureIndex} 
+                          className="flex items-center"
+                          whileHover={{ x: 8 }}
+                          transition={{ duration: 0.2, delay: featureIndex * 0.05 }}
+                        >
+                          <motion.div 
+                            className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 ${
+                              index === 0 ? 'bg-blue-600' :
+                              index === 1 ? 'bg-green-600' :
+                              index === 2 ? 'bg-purple-600' :
+                              'bg-red-600'
+                            }`}
+                            whileHover={{ scale: 1.5 }}
+                            transition={{ duration: 0.2 }}
+                          />
                           <span className="text-gray-700 text-sm">{feature}</span>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                     
                     {/* CTA */}
-                    <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
+                    <motion.div 
+                      className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors relative z-10"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <span>자세히 보기</span>
-                      <span className="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
-                  </div>
+                      <motion.span 
+                        className="ml-2"
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ 
+                          duration: 1.5, 
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                    
+                    {/* 하단 진행률 표시 */}
+                    <motion.div 
+                      className={`absolute bottom-0 left-0 h-1 ${
+                        index === 0 ? 'bg-blue-600' :
+                        index === 1 ? 'bg-green-600' :
+                        index === 2 ? 'bg-purple-600' :
+                        'bg-red-600'
+                      }`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      transition={{ duration: 1, delay: index * 0.2 }}
+                    />
+                  </motion.div>
                 </Link>
               </motion.div>
             ))}
@@ -330,18 +645,42 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="apple-card p-8 max-w-2xl mx-auto">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                어떤 솔루션이 적합한지 궁금하신가요?
-              </h3>
-              <p className="text-gray-600 mb-6">
-                전문 컨설턴트가 비즈니스에 최적화된 솔루션을 제안해드립니다
-              </p>
-              <Link href="/contact" className="btn-apple-primary inline-flex items-center gap-2">
-                무료 상담 신청
-                <span>→</span>
-              </Link>
-            </div>
+            <motion.div 
+              className="apple-card p-8 max-w-2xl mx-auto relative overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* 배경 애니메이션 */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-purple-50/50"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.8 }}
+              />
+              
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  어떤 솔루션이 적합한지 궁금하신가요?
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  전문 컨설턴트가 비즈니스에 최적화된 솔루션을 제안해드립니다
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="/contact" className="btn-apple-primary inline-flex items-center gap-2">
+                    무료 상담 신청
+                    <motion.span
+                      animate={{ x: [0, 3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      →
+                    </motion.span>
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

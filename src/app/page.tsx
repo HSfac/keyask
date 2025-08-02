@@ -1,4 +1,27 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
+const AnimatedCounter = ({ end, duration = 2 }: { end: number; duration?: number }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    const animate = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  }, [end, duration]);
+
+  return <span>{count}</span>;
+};
 
 export default function Home() {
   const solutions = [
@@ -60,53 +83,123 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* 히어로 섹션 */}
-      <section className="bg-gradient-to-br from-[#3182F6] to-[#1E40AF] text-white py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-br from-[#3182F6] to-[#1E40AF] text-white py-24 overflow-hidden">
+        {/* 배경 애니메이션 */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              스마트 키오스크로
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold mb-8 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <motion.span
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                스마트 키오스크로
+              </motion.span>
               <br />
-              <span className="text-[#60A5FA]">비즈니스 혁신</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed">
-              음식점, 카페, 편의점을 위한 최고의 키오스크 솔루션으로 
-              <br />운영 효율성을 높이고 고객 만족도를 극대화하세요
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link href="/contact" className="bg-white text-[#3182F6] px-10 py-5 rounded-2xl text-xl font-bold hover:bg-gray-50 transition-all duration-300 hover:scale-105 shadow-lg">
-                무료 견적 받기
-              </Link>
-              <Link href="/solutions" className="border-2 border-white text-white px-10 py-5 rounded-2xl text-xl font-bold hover:bg-white hover:text-[#3182F6] transition-all duration-300 hover:scale-105">
-                솔루션 보기
-              </Link>
-            </div>
+              <motion.span 
+                className="text-[#60A5FA]"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
+              >
+                비즈니스 혁신
+              </motion.span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl md:text-2xl mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+            >
+              음식점, 카페, 편의점을 위한 최고의 키오스크 솔루션으로 <br />
+              <span className="text-yellow-300 font-semibold">운영 효율성을 높이고 고객 만족도를 극대화하세요</span>
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-6 justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/contact" className="bg-white text-[#3182F6] px-10 py-5 rounded-2xl text-xl font-bold hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-2xl">
+                  무료 견적 받기
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/solutions" className="border-2 border-white text-white px-10 py-5 rounded-2xl text-xl font-bold hover:bg-white hover:text-[#3182F6] transition-all duration-300">
+                  솔루션 보기
+                </Link>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* 통계 섹션 */}
-      <section className="py-20 bg-gray-50">
+      <motion.section 
+        className="py-20 bg-gray-50"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              검증된 성과
+              검증된 <span className="bg-gradient-to-r from-[#3182F6] to-[#1E40AF] bg-clip-text text-transparent">성과</span>
             </h2>
             <p className="text-xl text-gray-600">
               수많은 고객사가 선택한 신뢰할 수 있는 파트너입니다
             </p>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center hover:scale-105">
-                <div className={`text-5xl font-bold ${stat.color} mb-3`}>
-                  {stat.number}
-                </div>
-                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
-              </div>
-            ))}
+            {stats.map((stat, index) => {
+              const statNumber = parseInt(stat.number.replace(/[^0-9]/g, ''));
+              return (
+                <motion.div 
+                  key={index} 
+                  className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className={`text-5xl font-bold ${stat.color} mb-3`}>
+                    {isNaN(statNumber) ? stat.number : <><AnimatedCounter end={statNumber} />{stat.number.replace(/[0-9]/g, '')}</>}
+                  </div>
+                  <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 솔루션 소개 섹션 */}
       <section className="py-24 bg-white">

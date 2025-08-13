@@ -38,15 +38,15 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-20">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             무료 상담 신청
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
             키오스크 도입에 대한 모든 궁금증을 해결해드립니다.
-            <br />전문 컨설턴트가 맞춤형 솔루션을 무료로 제안해드립니다.
+            <br className="hidden sm:block" />전문 컨설턴트가 맞춤형 솔루션을 무료로 제안해드립니다.
           </p>
         </div>
 

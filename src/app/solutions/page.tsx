@@ -103,26 +103,26 @@ export default function SolutionsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-20">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             업종별 맞춤 솔루션
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
             각 업종의 고유한 특성과 비즈니스 요구사항을 깊이 분석하여 
-            <br />최적화된 키오스크 솔루션을 제공합니다.
+            <br className="hidden sm:block" />최적화된 키오스크 솔루션을 제공합니다.
           </p>
         </div>
 
         {/* 성과 지표 */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 md:mb-20">
           {successMetrics.map((metric, index) => (
-            <div key={index} className="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className={`text-4xl font-bold ${metric.color} mb-2`}>
+            <div key={index} className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className={`text-2xl sm:text-3xl md:text-4xl font-bold ${metric.color} mb-1 sm:mb-2`}>
                 {metric.value}
               </div>
-              <div className="text-gray-600 font-medium">{metric.label}</div>
+              <div className="text-gray-600 font-medium text-xs sm:text-sm">{metric.label}</div>
             </div>
           ))}
         </div>

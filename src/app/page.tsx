@@ -125,7 +125,7 @@ export default function Home() {
       </div>
 
       {/* 히어로 섹션 */}
-      <section className="relative text-gray-900 pt-16 md:pt-24 pb-12 md:pb-20 overflow-hidden">
+      <section className="relative text-gray-900 pt-12 sm:pt-16 md:pt-24 pb-8 sm:pb-12 md:pb-20 overflow-hidden">
         {/* 인터랙티브 배경 요소 */}
         <div className="absolute inset-0">
           <motion.div
@@ -171,7 +171,7 @@ export default function Home() {
               </motion.div>
               
               <motion.h1 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight tracking-tight text-gray-900"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight tracking-tight text-gray-900"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -182,7 +182,7 @@ export default function Home() {
               </motion.h1>
               
               <motion.p 
-                className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 text-gray-600 leading-relaxed"
+                className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 text-gray-600 leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -193,7 +193,7 @@ export default function Home() {
               </motion.p>
               
               <motion.div 
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mb-8 md:mb-12"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mb-6 sm:mb-8 md:mb-12"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -202,12 +202,12 @@ export default function Home() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Link href="/contact" className="btn-startup-gradient inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold startup-neon-glow w-full sm:w-auto text-center">
+                  <Link href="/contact" className="btn-startup-gradient inline-flex items-center gap-2 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold startup-neon-glow w-full sm:w-auto text-center">
                     무료 견적 받기 ✨
                     <motion.span
                       animate={{ x: [0, 3, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
-                      className="text-base sm:text-lg"
+                      className="text-sm sm:text-base md:text-lg"
                     >
                       →
                     </motion.span>
@@ -218,7 +218,7 @@ export default function Home() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Link href="/solutions" className="btn-startup-secondary inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold w-full sm:w-auto text-center">
+                  <Link href="/solutions" className="btn-startup-secondary inline-flex items-center gap-2 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold w-full sm:w-auto text-center">
                     솔루션 보기 🎯
                     <motion.span
                       animate={{ rotate: [0, 10, -10, 0] }}
@@ -232,21 +232,21 @@ export default function Home() {
               
               {/* 신뢰 지표 */}
               <motion.div
-                className="flex flex-wrap justify-center lg:justify-start items-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-gray-500"
+                className="flex flex-wrap justify-center lg:justify-start items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-gray-500"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full"></div>
                   <span>24/7 실시간 지원</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full"></div>
                   <span>99.9% 가동률 보장</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-500 rounded-full"></div>
                   <span>500+ 설치 완료</span>
                 </div>
               </motion.div>
@@ -254,12 +254,12 @@ export default function Home() {
 
             {/* 오른쪽 이미지 영역 */}
             <motion.div 
-              className="relative order-first lg:order-last"
+              className="relative order-first lg:order-last mb-6 sm:mb-8 lg:mb-0"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <div className="relative w-full aspect-square max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+              <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
                 {/* 배경 그라디언트 원 */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-blue-100/50 via-purple-100/50 to-pink-100/50 rounded-full blur-2xl sm:blur-3xl"
@@ -276,7 +276,7 @@ export default function Home() {
                 
                 {/* 메인 이미지 컨테이너 */}
                 <motion.div 
-                  className="relative w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl border border-gray-200 flex items-center justify-center overflow-hidden startup-neon-glow"
+                  className="relative w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg sm:shadow-xl md:shadow-2xl border border-gray-200 flex items-center justify-center overflow-hidden startup-neon-glow"
                   whileHover={{ 
                     y: -4,
                     rotateY: 2,
@@ -291,7 +291,7 @@ export default function Home() {
                     src="/kiosk-hero.png"
                     alt="KeyAsk 키오스크"
                     fill
-                    className="object-contain p-3 sm:p-4 md:p-6 lg:p-8"
+                    className="object-contain p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8"
                     priority
                   />
                 </motion.div>
@@ -330,7 +330,7 @@ export default function Home() {
 
       {/* 통계 섹션 */}
       <motion.section 
-        className="py-20 relative overflow-hidden"
+        className="py-12 sm:py-16 md:py-20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -363,10 +363,10 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
             <motion.div 
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-6"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-100 text-blue-600 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -378,21 +378,21 @@ export default function Home() {
               </motion.span> 
               검증된 성과
             </motion.div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               신뢰할 수 있는 파트너
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
               500+ 고객사가 선택한 검증된 키오스크 솔루션
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, index) => {
               const statNumber = parseInt(stat.number.replace(/[^0-9]/g, ''));
               return (
                 <motion.div 
                   key={index} 
-                  className="startup-card p-8 text-center group relative overflow-hidden"
+                  className="startup-card p-4 sm:p-6 md:p-8 text-center group relative overflow-hidden"
                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
@@ -423,7 +423,7 @@ export default function Home() {
                   
                   {/* 상단 아이콘 */}
                   <motion.div 
-                    className="text-2xl mb-3"
+                    className="text-xl sm:text-2xl mb-2 sm:mb-3"
                     whileHover={{ 
                       scale: 1.2,
                       rotate: [0, -10, 10, 0]
@@ -434,7 +434,7 @@ export default function Home() {
                   </motion.div>
                   
                   <motion.div 
-                    className={`text-4xl font-bold mb-2 relative z-10 ${
+                    className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2 relative z-10 ${
                       index === 0 ? 'text-blue-600' : 
                       index === 1 ? 'text-green-600' : 
                       index === 2 ? 'text-purple-600' : 'text-orange-600'
@@ -444,7 +444,7 @@ export default function Home() {
                   >
                     {isNaN(statNumber) ? stat.number : <><AnimatedCounter end={statNumber} />{stat.number.replace(/[0-9]/g, '')}</>}
                   </motion.div>
-                  <div className="text-gray-600 font-medium relative z-10">{stat.label}</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium relative z-10">{stat.label}</div>
                   
                   {/* 하단 프로그레스 바 */}
                   <motion.div 
@@ -538,7 +538,7 @@ export default function Home() {
       </div>
 
       {/* 솔루션 소개 섹션 */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden">
         {/* 정적 배경 패턴 - 성능 최적화 */}
         <div
           className="absolute inset-0 opacity-30"
@@ -550,25 +550,25 @@ export default function Home() {
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-100 text-gray-600 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
               <span>🎯</span> 맞춤형 솔루션
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               업종별 전문 솔루션
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
               각 업종의 특성에 최적화된 키오스크 솔루션으로 
               운영 효율성과 고객 만족도를 동시에 향상시키세요
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {solutions.map((solution, index) => (
               <motion.div
                 key={index}
@@ -585,7 +585,7 @@ export default function Home() {
               >
                 <Link href={solution.href} className="block">
                   <motion.div 
-                    className="startup-card-gradient p-8 h-full relative overflow-hidden"
+                    className="startup-card-gradient p-6 sm:p-8 h-full relative overflow-hidden"
                     whileHover={{ 
                       y: -6,
                       scale: 1.01
@@ -608,16 +608,16 @@ export default function Home() {
                     />
                     
                     {/* 간소화된 아이콘 */}
-                    <div className="text-6xl mb-6 relative z-10 group-hover:scale-105 transition-transform duration-300">
+                    <div className="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 relative z-10 group-hover:scale-105 transition-transform duration-300">
                       {solution.icon}
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors relative z-10">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 group-hover:text-blue-600 transition-colors relative z-10">
                       {solution.title}
                     </h3>
                     
                     <motion.p 
-                      className="text-gray-600 mb-6 leading-relaxed relative z-10"
+                      className="text-gray-600 mb-4 sm:mb-6 leading-relaxed relative z-10 text-sm sm:text-base"
                       whileHover={{ x: 3 }}
                       transition={{ duration: 0.2, delay: 0.05 }}
                     >
@@ -625,7 +625,7 @@ export default function Home() {
                     </motion.p>
                     
                     {/* 특징 리스트 */}
-                    <div className="space-y-3 mb-8 relative z-10">
+                    <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 relative z-10">
                       {solution.features.slice(0, 3).map((feature, featureIndex) => (
                         <motion.div 
                           key={featureIndex} 
@@ -634,7 +634,7 @@ export default function Home() {
                           transition={{ duration: 0.2, delay: featureIndex * 0.05 }}
                         >
                           <motion.div 
-                            className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 ${
+                            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full mr-2 sm:mr-3 flex-shrink-0 ${
                               index === 0 ? 'bg-blue-600' :
                               index === 1 ? 'bg-green-600' :
                               index === 2 ? 'bg-purple-600' :
@@ -643,7 +643,7 @@ export default function Home() {
                             whileHover={{ scale: 1.5 }}
                             transition={{ duration: 0.2 }}
                           />
-                          <span className="text-gray-700 text-sm">{feature}</span>
+                          <span className="text-gray-700 text-xs sm:text-sm">{feature}</span>
                         </motion.div>
                       ))}
                     </div>

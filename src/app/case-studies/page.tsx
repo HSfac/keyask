@@ -135,14 +135,14 @@ export default function CaseStudiesPage() {
   ];
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="min-h-screen py-8 sm:py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6">
             고객 성공 사례
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             다양한 업종에서 SmartKiosk Solutions가 어떻게 비즈니스 성과를 개선했는지 확인해보세요.
             실제 고객의 경험과 구체적인 성과를 통해 검증된 솔루션의 가치를 보여드립니다.
           </p>

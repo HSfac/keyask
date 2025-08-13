@@ -189,10 +189,10 @@ export default function ProductsPage() {
         <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-pink-500/10 rounded-full blur-3xl"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
         {/* 헤더 섹션 */}
         <motion.div 
-          className="text-center mb-24"
+          className="text-center mb-16 sm:mb-20 md:mb-24"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -202,12 +202,12 @@ export default function ProductsPage() {
             제품 라인업
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold startup-text-gradient mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold startup-text-gradient mb-6 sm:mb-8">
             키오스크 제품 라인업 💎
           </h1>
           
           <motion.p 
-            className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -223,7 +223,7 @@ export default function ProductsPage() {
           
           {/* Quick stats */}
           <motion.div 
-            className="flex flex-wrap justify-center items-center gap-8 mt-10 text-sm"
+            className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-10 text-xs sm:text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -236,7 +236,7 @@ export default function ProductsPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className={`flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full ${item.color} font-semibold transition-transform duration-200 hover:scale-105`}
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/80 backdrop-blur-sm rounded-full ${item.color} font-semibold transition-transform duration-200 hover:scale-105`}
               >
                 <span>{item.icon}</span>
                 <span>{item.text}</span>
@@ -249,25 +249,25 @@ export default function ProductsPage() {
         {products.map((category, categoryIndex) => (
           <motion.div 
             key={categoryIndex} 
-            className="mb-32"
+            className="mb-20 sm:mb-24 md:mb-32"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
           >
-            <div className="text-center mb-20">
-              <div className="text-8xl mb-6 inline-block">
+            <div className="text-center mb-12 sm:mb-16 md:mb-20">
+              <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 sm:mb-6 inline-block">
                 {category.icon}
               </div>
-              <h2 className="text-5xl font-bold startup-text-gradient mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold startup-text-gradient mb-4 sm:mb-6">
                 {category.category} ✨
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
                 {category.description}
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
               {category.items.map((product, productIndex) => (
                 <motion.div 
                   key={productIndex} 
@@ -319,41 +319,41 @@ export default function ProductsPage() {
                   </div>
 
                   {/* 제품 정보 */}
-                  <div className="p-8 relative">
-                    <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                  <div className="p-4 sm:p-6 md:p-8 relative">
+                    <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base md:text-lg leading-relaxed">
                       {product.description}
                     </p>
                     
-                    <div className="mb-8">
-                      <div className="text-4xl font-bold startup-text-gradient mb-2">
+                    <div className="mb-6 sm:mb-8">
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold startup-text-gradient mb-2">
                         {product.price} 💎
                       </div>
                       {product.monthlyPrice && (
-                        <div className="text-gray-500 text-sm font-medium">
+                        <div className="text-gray-500 text-xs sm:text-sm font-medium">
                           36개월 할부 시 {product.monthlyPrice} ⚡
                         </div>
                       )}
                     </div>
 
                     {/* 스펙 */}
-                    <div className="mb-8">
-                      <h4 className="font-bold startup-text-gradient mb-6 text-lg flex items-center gap-2">
+                    <div className="mb-6 sm:mb-8">
+                      <h4 className="font-bold startup-text-gradient mb-4 sm:mb-6 text-base sm:text-lg flex items-center gap-2">
                         <span>⚙️</span> 주요 사양
                       </h4>
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         {product.specs.map((spec, specIndex) => (
                           <div 
                             key={specIndex} 
                             className="flex items-start group transition-all duration-200 hover:translate-x-2"
                           >
                             <div 
-                              className={`w-3 h-3 rounded-full mr-3 mt-1.5 flex-shrink-0 ${
+                              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full mr-2 sm:mr-3 mt-1.5 flex-shrink-0 ${
                                 categoryIndex === 0 ? 'bg-blue-600' :
                                 categoryIndex === 1 ? 'bg-green-600' :
                                 'bg-orange-600'
                               }`}
                             />
-                            <span className="text-gray-700 font-medium group-hover:text-gray-900 transition-colors">
+                            <span className="text-gray-700 font-medium group-hover:text-gray-900 transition-colors text-xs sm:text-sm">
                               {spec}
                             </span>
                           </div>
@@ -362,12 +362,12 @@ export default function ProductsPage() {
                     </div>
 
                     {/* 버튼 */}
-                    <div className="space-y-4">
-                      <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-1">
+                    <div className="space-y-3 sm:space-y-4">
+                      <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-sm sm:text-base md:text-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-1">
                         상세보기 🔍
                       </button>
                       
-                      <button className="w-full border-2 border-gray-300 text-gray-700 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-200 hover:border-blue-500 hover:text-blue-600">
+                      <button className="w-full border-2 border-gray-300 text-gray-700 py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all duration-200 hover:border-blue-500 hover:text-blue-600">
                         견적 문의 💬
                       </button>
                     </div>

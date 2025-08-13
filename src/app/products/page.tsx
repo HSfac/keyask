@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 
 export default function ProductsPage() {
   const products = [
@@ -404,7 +403,7 @@ export default function ProductsPage() {
                   <th className="p-4 text-center text-base font-bold text-gray-700">
                     <div className="flex flex-col items-center">
                       <span>KeyAsk Basic</span>
-                      <span className="text-sm font-normal text-gray-500">15.6"</span>
+                      <span className="text-sm font-normal text-gray-500">15.6&quot;</span>
                     </div>
                   </th>
                   <th className="p-4 text-center text-base font-bold text-blue-600 bg-blue-100/70">
@@ -413,13 +412,13 @@ export default function ProductsPage() {
                         KeyAsk Pro
                         <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full">인기</span>
                       </span>
-                      <span className="text-sm font-normal text-blue-500">21.5"</span>
+                      <span className="text-sm font-normal text-blue-500">21.5&quot;</span>
                     </div>
                   </th>
                   <th className="p-4 text-center text-base font-bold text-gray-700 rounded-tr-lg">
                     <div className="flex flex-col items-center">
                       <span>KeyAsk Max</span>
-                      <span className="text-sm font-normal text-gray-500">27"</span>
+                      <span className="text-sm font-normal text-gray-500">27&quot;</span>
                     </div>
                   </th>
                 </tr>
